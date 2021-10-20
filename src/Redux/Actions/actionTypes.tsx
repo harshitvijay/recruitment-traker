@@ -1,0 +1,2 @@
+export const ADD_CANDIDATE = "ADD_CANDIDATE";
+export const DELETE_CANDIDATE = "DELETE_CANDIDATE";
