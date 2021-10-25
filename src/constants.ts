@@ -47,3 +47,5 @@ export const initialFields = {
 };
 export const loginUrl = "https://rms-01.herokuapp.com/api/login";
 export const signupUrl = "https://rms-01.herokuapp.com/api/register";
+export const candidateProfileURL =
+  "https://rms-01.herokuapp.com/api/get-profiles";
