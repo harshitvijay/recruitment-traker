@@ -40,3 +40,15 @@ export const signup = async (
   const result = await response.json();
   return result;
 };
+export const getCandidateProfile = async (url: string) => {
+  const currentUser = JSON.parse(sessionStorage.getItem("currentUser") || "{}");
+  const option = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${currentUser.token}`,
+    },
+  };
+  const response = await fetch(url, option);
+  const result = await response.json();
+  return result;
+};
