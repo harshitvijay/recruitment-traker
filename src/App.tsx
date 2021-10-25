@@ -12,7 +12,7 @@ const App: FC = () => {
         <Route exact path="/">
           <LandingPage />
         </Route>
-        <Route path={`/user`}>
+        <Route path={`/dashboard`}>
           <DashboardPage />
         </Route>
       </Switch>
