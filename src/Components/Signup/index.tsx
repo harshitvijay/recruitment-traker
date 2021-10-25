@@ -5,19 +5,19 @@ import Container from "react-bootstrap/Container";
 import Button from "@restart/ui/esm/Button";
 import Form from "react-bootstrap/Form";
 import FormInput from "../FormInput";
-import {
-  initialFields,
-  RegistrationFormInputData,
-  signupUrl,
-} from "src/constants";
 import { ErrorInterface, FieldsInterface } from "src/common.interface";
+import { signup } from "src/service";
 import {
   nameValidation,
   emailValidation,
   passwordValidation,
   confirmPasswordValidation,
 } from "src/validation";
-import { signup } from "src/service";
+import {
+  initialFields,
+  RegistrationFormInputData,
+  signupUrl,
+} from "src/constants";
 
 const Signup: FC = () => {
   const [fields, setFields] = useState<FieldsInterface>(initialFields);
