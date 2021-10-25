@@ -5,14 +5,15 @@ import Button from "@restart/ui/esm/Button";
 import Form from "react-bootstrap/Form";
 import swal from "sweetalert";
 import FormInput from "../FormInput";
-import { LoginFormInputData, initialFields, loginUrl } from "src/constants";
 import { ErrorInterface, FieldsInterface } from "src/common.interface";
-import { emailValidation, passwordValidation } from "src/validation";
 import { login } from "src/service";
+import { emailValidation, passwordValidation } from "src/validation";
+import { LoginFormInputData, initialFields, loginUrl } from "src/constants";
 
 const Login: FC = () => {
   const [fields, setFields] = useState<FieldsInterface>(initialFields);
   const [errors, setErrors] = useState<ErrorInterface>(initialFields);
+  // const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFields({ ...fields, [e.target.name]: e.target.value });
@@ -30,22 +31,22 @@ const Login: FC = () => {
     return formIsValid;
   };
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     if (handleValidation()) {
-      const response = await login(loginUrl, {
-        email: fields.email,
-        password: fields.password,
-      });
+      e.preventDefault();
+      const temp = { email: fields.email, password: fields.password };
+      const response = await login(loginUrl, temp);
+      const data = {
+        userId: response.data.user.id,
+        token: response.data.token,
+        userName: response.data.user.name,
+        userEmail: response.data.user.email,
+        userType: response.data.user.user_type,
+      };
+      sessionStorage.setItem("currentUser", JSON.stringify(data));
       if (response.success) {
-        swal(response.message, "", "success");
-        const data = {
-          userId: response.data.user.id,
-          token: response.data.token,
-          userName: response.data.user.name,
-          userEmail: response.data.user.email,
-          userType: response.data.user.user_type,
-        };
-        sessionStorage.setItem("currentUser", JSON.stringify(data));
+        swal(response.message, "", "success").then((value) => {
+          window.location.href = `/dashboard?username=${data.userName}`;
+        });
       } else {
         swal(response.message, "", "error");
       }
