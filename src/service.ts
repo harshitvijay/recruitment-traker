@@ -7,15 +7,10 @@ export const login = async (
   formdata.append("password", data.password);
   const option = {
     method: "POST",
-    headers: {
-      "Content-Type":
-        "multipart/form-data; boundary=<calculated when request is sent>",
-    },
     body: formdata,
   };
   const response = await fetch(url, option);
   const result = await response.json();
-  console.log(result);
   return result;
 };
 
