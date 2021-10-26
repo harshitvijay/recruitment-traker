@@ -13,7 +13,6 @@ import { LoginFormInputData, initialFields, loginUrl } from "src/constants";
 const Login: FC = () => {
   const [fields, setFields] = useState<FieldsInterface>(initialFields);
   const [errors, setErrors] = useState<ErrorInterface>(initialFields);
-  // const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFields({ ...fields, [e.target.name]: e.target.value });
