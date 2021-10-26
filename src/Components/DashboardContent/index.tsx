@@ -20,8 +20,7 @@ const DashboardContent: FC = () => {
 
   return (
     <div className="dash-content">
-      <DashboardHeader />
-      <h3 className="text-secondary">Recent Candidate</h3>
+      <DashboardHeader title="Recent Candidate" mainHeading="Dashboard" />
       <div className="row my-4">
         {cardData?.map((candidate, index: number) => {
           return <DashboardContentCard key={index} data={candidate} />;
