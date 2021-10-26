@@ -1,9 +1,8 @@
-import { FC } from "react";
-import DashboardContent from "../DashboardContent";
+import React, { FC } from "react";
 import SideNavList from "../SideNavList";
 import "./style.css";
 
-const SideNav: FC = () => {
+const SideNav: FC<{ child1?: React.ReactNode }> = ({ child1 }) => {
   return (
     <div className="container-fluid">
       <div className="row">
@@ -13,9 +12,7 @@ const SideNav: FC = () => {
         >
           <SideNavList />
         </nav>
-        <main className="col-md-9 ml-sm-auto col-lg-10">
-          <DashboardContent />
-        </main>
+        <main className="col-md-9 ml-sm-auto col-lg-10">{child1}</main>
       </div>
     </div>
   );
