@@ -31,7 +31,14 @@ export interface CandidateProfileInterface {
   technology: string;
   contact_no: string;
   head_hunted_by: string;
-  source_of_hire: "linkedin";
+  source_of_hire: string;
   created_at: string;
   updated_at: string;
 }
+
+export type DropDownTypes = {
+  label: string;
+  value: string;
+};
+
+export type Event = {};
