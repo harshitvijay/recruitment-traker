@@ -3,7 +3,7 @@ import { getCurrentUser } from "src/utils";
 
 const TopNav: FC = () => {
   return (
-    <nav className="navbar navbar-light bg-light p-3">
+    <nav className="navbar fixed-top navbar-light bg-light p-3">
       <div className="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
         <a className="navbar-brand" href="https://deqode.com/">
           <svg
