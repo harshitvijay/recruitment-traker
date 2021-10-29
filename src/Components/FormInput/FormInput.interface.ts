@@ -1,5 +1,3 @@
-import React from "react";
-
 interface FormInputInterface {
   label: string;
   type: string;
@@ -7,7 +5,8 @@ interface FormInputInterface {
   error?: string;
   name: string;
   value?: string;
-  onChang(e: React.ChangeEvent<HTMLInputElement>): void;
+  setFields(fields: any): void;
+  fields: any;
 }
 
 export default FormInputInterface;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import Form from "react-bootstrap/Form";
 import FormInputInterface from "./FormInput.interface";
 
@@ -9,8 +9,12 @@ const FormInput: FC<FormInputInterface> = ({
   error,
   value,
   name,
-  onChang,
+  fields,
+  setFields,
 }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFields({ ...fields, [e.target.name]: e.target.value });
+  };
   return (
     <Form.Group className="mb-3">
       <Form.Label>
@@ -22,7 +26,7 @@ const FormInput: FC<FormInputInterface> = ({
         placeholder={placeHolder}
         name={name}
         value={value}
-        onChange={onChang}
+        onChange={handleChange}
       />
       <Form.Text className="text-danger">{error}</Form.Text>
     </Form.Group>
