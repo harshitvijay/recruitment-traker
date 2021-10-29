@@ -14,15 +14,15 @@ const Login: FC = () => {
   const [fields, setFields] = useState<FieldsInterface>(initialFields);
   const [errors, setErrors] = useState<ErrorInterface>(initialFields);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFields({ ...fields, [e.target.name]: e.target.value });
-  };
   const handleValidation = () => {
     let formIsValid = true;
     const fieldObj = { ...fields };
-    let errorObj = { ...errors };
-    errorObj = emailValidation(fieldObj, errorObj);
-    errorObj = passwordValidation(fieldObj, errorObj);
+    const errorObj = { ...errors };
+    errorObj.email = emailValidation(fieldObj.email, errorObj.email);
+    errorObj.password = passwordValidation(
+      fieldObj.password,
+      errorObj.password
+    );
     if (errorObj.email !== "" || errorObj.password !== "") {
       formIsValid = false;
     }
@@ -30,8 +30,8 @@ const Login: FC = () => {
     return formIsValid;
   };
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (handleValidation()) {
-      e.preventDefault();
       const temp = { email: fields.email, password: fields.password };
       const response = await login(loginUrl, temp);
       const data = {
@@ -51,7 +51,6 @@ const Login: FC = () => {
       }
       setErrors(initialFields);
     }
-    setFields(initialFields);
   };
   return (
     <Container className="w-50 border border-secondary p-4 bg-light mt-5">
@@ -66,7 +65,8 @@ const Login: FC = () => {
             name={data.name}
             error={errors[data.name]}
             value={fields[data.name]}
-            onChang={handleChange}
+            setFields={setFields}
+            fields={fields}
           />
         ))}
         <Button
