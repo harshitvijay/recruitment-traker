@@ -1,74 +1,63 @@
-import { ErrorInterface, FieldsInterface } from "./common.interface";
-
-export const nameValidation = (
-  fields: FieldsInterface,
-  errors: ErrorInterface
-) => {
-  if (!fields.name) {
-    errors.name = "Cannot be empty";
+export const nameValidation = (name: string, error: string): string => {
+  if (!name) {
+    error = "Cannot be empty";
   }
 
-  if (fields.name) {
-    if (!fields.name.match(/^[a-zA-Z]+$/)) {
-      errors.name = "Only letters";
+  if (name) {
+    if (!name.match(/^[a-zA-Z]+$/)) {
+      error = "Only letters";
     }
   }
-  return errors;
+  return error;
 };
-export const emailValidation = (
-  fields: FieldsInterface,
-  errors: ErrorInterface
-) => {
-  if (!fields.email) {
-    errors.email = "Cannot be empty";
+export const emailValidation = (email: string, error: string): string => {
+  if (!email) {
+    error = "Cannot be empty";
   }
 
-  if (fields.email) {
-    const lastAtPos = fields.email.lastIndexOf("@");
-    const lastDotPos = fields.email.lastIndexOf(".");
+  if (email) {
+    const lastAtPos = email.lastIndexOf("@");
+    const lastDotPos = email.lastIndexOf(".");
 
     if (
       !(
         lastAtPos < lastDotPos &&
         lastAtPos > 0 &&
-        fields.email.indexOf("@@") === -1 &&
+        email.indexOf("@@") === -1 &&
         lastDotPos > 2 &&
-        fields.email.length - lastDotPos > 2
+        email.length - lastDotPos > 2
       )
     ) {
-      errors.email = "Email is not valid";
+      error = "Email is not valid";
     }
   }
-  return errors;
+  return error;
 };
-export const passwordValidation = (
-  fields: FieldsInterface,
-  errors: ErrorInterface
-) => {
-  if (!fields.password) {
-    errors.password = "Cannot be empty";
+export const passwordValidation = (password: string, error: string): string => {
+  if (!password) {
+    error = "Cannot be empty";
   }
-  if (fields.password) {
+  if (password) {
     const reg =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-    if (!fields.password.match(reg)) {
-      errors.password =
+    if (!password.match(reg)) {
+      error =
         "Password Must be in 8 to 15 Chracters with one uppercase one lowercase one digit and one special character";
     }
   }
-  return errors;
+  return error;
 };
 export const confirmPasswordValidation = (
-  fields: FieldsInterface,
-  errors: ErrorInterface
-) => {
+  fields: { confirmPassword: string; password: string },
+  error: string
+): string => {
   if (!fields.confirmPassword) {
-    errors.confirmPassword = "Cannot be empty";
+    error = "Cannot be empty";
   }
   if (fields.confirmPassword) {
     if (fields.password !== fields.confirmPassword) {
-      errors.confirmPassword = "Password Mismatch";
+      error = "Password Mismatch";
     }
   }
-  return errors;
+  return error;
 };
