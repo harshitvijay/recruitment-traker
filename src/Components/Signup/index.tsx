@@ -23,17 +23,23 @@ const Signup: FC = () => {
   const [fields, setFields] = useState<FieldsInterface>(initialFields);
   const [errors, setErrors] = useState<ErrorInterface>(initialFields);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFields({ ...fields, [e.target.name]: e.target.value });
-  };
   const handleValidation = () => {
     let formIsValid = true;
     const fieldObj = { ...fields };
-    let errorObj = { ...errors };
-    errorObj = nameValidation(fieldObj, errorObj);
-    errorObj = emailValidation(fieldObj, errorObj);
-    errorObj = passwordValidation(fieldObj, errorObj);
-    errorObj = confirmPasswordValidation(fieldObj, errorObj);
+    const errorObj = { ...errors };
+    errorObj.name = nameValidation(fieldObj.name, errorObj.name);
+    errorObj.email = emailValidation(fieldObj.email, errorObj.email);
+    errorObj.password = passwordValidation(
+      fieldObj.password,
+      errorObj.password
+    );
+    errorObj.confirmPassword = confirmPasswordValidation(
+      {
+        confirmPassword: fieldObj.confirmPassword,
+        password: fieldObj.password,
+      },
+      errorObj.confirmPassword
+    );
     if (
       errorObj.name !== "" ||
       errorObj.email !== "" ||
@@ -77,7 +83,8 @@ const Signup: FC = () => {
             error={errors[data.name]}
             name={data.name}
             value={fields[data.name]}
-            onChang={handleChange}
+            setFields={setFields}
+            fields={fields}
           />
         ))}
         <Button
