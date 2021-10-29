@@ -1,9 +1,9 @@
 .tabel {
-    padding-left: 20%;
-    padding-right: 5%;
-    padding-bottom: 20%;
     min-width: fit-content;
    min-height: fit-content;
+   flex-direction: row;
+   width: 120%;
+   margin-top: 5%;
   }
   .table1 {
     font-family: Arial, Serif, sans-serif;

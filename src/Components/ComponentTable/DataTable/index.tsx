@@ -41,7 +41,7 @@ const DataTable: FC<Props> = ({ option, tableData, loading, search }) => {
                       val.name
                         .toLocaleLowerCase()
                         .includes(search.toLocaleLowerCase()) ||
-                      val.email
+                      val.technology
                         .toLocaleLowerCase()
                         .includes(search.toLocaleLowerCase())
                     ) {
