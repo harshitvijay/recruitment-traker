@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import DashboardHeader from "../DashboardHeader";
 import FormInput from "../FormInput";
 import FormSelect from "../FormSelect";
+import FormMultipleInput from "../FormMultipleInput";
 import { UserProfileInterface } from "./userProfile.interface";
 import {
   addProfileFormSelect,
@@ -13,8 +14,6 @@ import {
 import { nameValidation, emailValidation } from "src/validation";
 
 const AddUserProfile: FC = () => {
-  const gender = "gender";
-  const dob = "dob";
   const [fields, setFields] = useState<UserProfileInterface>(
     userProfileInitialFields
   );
@@ -50,7 +49,7 @@ const AddUserProfile: FC = () => {
           <Row>
             <h4 className="text-secondary">Enter Candidate Info</h4>
             {CandidatePersonalInfo.map((data, index) => (
-              <Col key={index}>
+              <Col key={index} xs={4}>
                 <FormInput
                   label={data.label}
                   type={data.type}
@@ -77,17 +76,10 @@ const AddUserProfile: FC = () => {
                 />
               </Col>
             ))}
-            <Col>
-              <FormInput
-                label="Birth Date"
-                type="date"
-                placeHolder="Birth Date"
-                error={errors[gender]}
-                name="dob"
-                value={fields[dob]}
-                setFields={setFields}
-                fields={fields}
-              />
+          </Row>
+          <Row>
+            <Col xs={4}>
+              <FormMultipleInput />
             </Col>
           </Row>
           <Button
