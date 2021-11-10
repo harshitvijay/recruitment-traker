@@ -106,6 +106,24 @@ export const CandidatePersonalInfo = [
     placeHolder: "Enter Number",
     name: "contact_no",
   },
+  {
+    label: "Birth Date",
+    type: "date",
+    placeHolder: "Enter DOB",
+    name: "dob",
+  },
+  {
+    label: "Current CTC(In Lakh Per Annum)",
+    type: "text",
+    placeHolder: "Enter Current CTC",
+    name: "CurrCTC",
+  },
+  {
+    label: "Expected CTC(In Lakh Per Annum)",
+    type: "text",
+    placeHolder: "Enter Expected CTC",
+    name: "expCTC",
+  },
 ];
 
 export const tableHeadings = [
