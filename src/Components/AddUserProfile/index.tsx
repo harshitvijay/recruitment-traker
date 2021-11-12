@@ -1,4 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import DashboardHeader from "../DashboardHeader";
@@ -10,8 +11,11 @@ import {
   addProfileFormSelect,
   CandidatePersonalInfo,
   userProfileInitialFields,
+  userProfileListUrl,
 } from "src/constants";
+import { getCandidateProfile } from "src/service";
 import { nameValidation, emailValidation } from "src/validation";
+import { formatProfileData, userID } from "src/utils";
 
 const AddUserProfile: FC = () => {
   const [fields, setFields] = useState<UserProfileInterface>(
@@ -20,7 +24,17 @@ const AddUserProfile: FC = () => {
   const [errors, setErrors] = useState<UserProfileInterface>(
     userProfileInitialFields
   );
-
+  const id = userID();
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getCandidateProfile(userProfileListUrl, id);
+      if (data.success) {
+        const result = await formatProfileData(data.data.profiles[0]);
+        setFields(result);
+      }
+    };
+    getData();
+  }, []);
   const handleValidation = () => {
     let formIsValid = true;
     const fieldObj = { ...fields };
@@ -40,7 +54,6 @@ const AddUserProfile: FC = () => {
     }
     setFields(userProfileInitialFields);
   };
-
   return (
     <div className="dash-content">
       <DashboardHeader title="Add Profile" mainHeading="Add Users" />
@@ -89,6 +102,9 @@ const AddUserProfile: FC = () => {
           >
             Add User
           </Button>
+          <Link type="submit" className="btn btn-danger " to={"/tables"}>
+            Cancle
+          </Link>
         </Form>
       </div>
     </div>
