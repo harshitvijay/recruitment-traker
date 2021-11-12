@@ -3,11 +3,21 @@ import Props from "./dataTable.interface";
 import { CandidateProfileInterface } from "src/common.interface";
 import { header } from "src/constants";
 import "./style.css";
+import Editing from "../Editing";
 
-const DataTable: FC<Props> = ({ option, tableData, loading, search }) => {
+const DataTable: FC<Props> = ({
+  option,
+  tableData,
+  loading,
+  search,
+  deleteHandler,
+  editHandler,
+  showModal,
+  setShowModal,
+}) => {
   let isSet = true;
   return (
-    <div>
+    <div className="tablemain">
       <div className="card">
         <table className="table1">
           <thead>
@@ -63,6 +73,34 @@ const DataTable: FC<Props> = ({ option, tableData, loading, search }) => {
                         <td>{candidate.experience}</td>
                         <td>{candidate.current_salary}</td>
                         <td>{candidate.expected_ctc}</td>
+                        <td>
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => editHandler(candidate.id, index)}
+                          >
+                            Edit
+                            <Editing
+                              id={candidate}
+                              showModal={showModal}
+                              setShowModal={setShowModal}
+                            />
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => deleteHandler(candidate.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                        <td>
+                          <button type="button" className="btn btn-success">
+                            View
+                          </button>
+                        </td>
                       </tr>
                     );
                   })}
