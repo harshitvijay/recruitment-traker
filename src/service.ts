@@ -40,15 +40,23 @@ export const signup = async (
   const result = await response.json();
   return result;
 };
-export const getCandidateProfile = async (url: string) => {
+export const getCandidateProfile = async (
+  url: string,
+  index?: string | null
+) => {
   const currentUser = JSON.parse(sessionStorage.getItem("currentUser") || "{}");
+  let response;
   const option = {
     method: "GET",
     headers: {
       Authorization: `Bearer ${currentUser.token}`,
     },
   };
-  const response = await fetch(url, option);
+  if (index) {
+    response = await fetch(`${url}/${index}`, option);
+  } else {
+    response = await fetch(url, option);
+  }
   const result = await response.json();
   return result;
 };
@@ -72,3 +80,15 @@ const getCitis = async () => {
   console.log(result);
 };
 getCitis();
+export const getCandidateUpdatedProfile = async (url: string) => {
+  const currentUser = JSON.parse(sessionStorage.getItem("currentUser") || "{}");
+  const option = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${currentUser.token}`,
+    },
+  };
+  const response = await fetch(url, option);
+  const result = await response.json();
+  return result;
+};
