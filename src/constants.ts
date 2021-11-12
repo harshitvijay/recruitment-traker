@@ -53,7 +53,7 @@ export const addProfileFormSelect = [
   },
   {
     label: "Hunted By",
-    name: "hunted_by",
+    name: "head_hunted_by",
     option: [
       "Aman Yadva",
       "Vishal Soni",
@@ -116,13 +116,13 @@ export const CandidatePersonalInfo = [
     label: "Current CTC(In Lakh Per Annum)",
     type: "text",
     placeHolder: "Enter Current CTC",
-    name: "CurrCTC",
+    name: "current_salary",
   },
   {
     label: "Expected CTC(In Lakh Per Annum)",
     type: "text",
     placeHolder: "Enter Expected CTC",
-    name: "expCTC",
+    name: "expected_ctc",
   },
 ];
 
@@ -149,7 +149,7 @@ export const tableHeadings = [
   },
   {
     label: "current_status",
-    value: "Current_Status",
+    value: "Current Status",
   },
   {
     label: "experience",
@@ -157,11 +157,23 @@ export const tableHeadings = [
   },
   {
     label: "current_salary",
-    value: "Current_Salary",
+    value: "Current Salary",
   },
   {
     label: "expected_ctc",
-    value: "Excpected_CTC",
+    value: "Excpected CTC",
+  },
+  {
+    label: "Edit",
+    value: "Edit",
+  },
+  {
+    label: "Delete",
+    value: "Delete",
+  },
+  {
+    label: "View",
+    value: "View",
   },
 ];
 
@@ -189,4 +201,9 @@ export const loginUrl = "https://rms-01.herokuapp.com/api/login";
 export const signupUrl = "https://rms-01.herokuapp.com/api/register";
 export const candidateProfileURL =
   "https://rms-01.herokuapp.com/api/get-profiles";
-export const userProfileList = "https://rms-01.herokuapp.com/api/get-profiles";
+export const userProfileListUrl =
+  "https://rms-01.herokuapp.com/api/get-profiles";
+export const userProfileDeletedList = "";
+export const userProfileUpdatedList =
+  "https://rms-01.herokuapp.com/api/create-profile";
+export const selectUserTechonolgy = "https://rms-01.herokuapp.com/api/skillset";
