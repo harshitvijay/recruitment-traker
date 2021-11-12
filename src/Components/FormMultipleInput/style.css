@@ -1,3 +1,10 @@
 .close-button {
   cursor: pointer;
 }
+.select{
+  width: fit-content;
+  margin-bottom: 16px;
+  background-color:#aaa69d;
+  display: inline-block;
+  margin-right: 15px;
+}

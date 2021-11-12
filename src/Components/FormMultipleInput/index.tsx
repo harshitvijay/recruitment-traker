@@ -35,10 +35,7 @@ const FormMultipleInput: FC = () => {
     <Form.Group className="mb-3">
       {data.length > 0 &&
         data.map((elem, index) => (
-          <div
-            key={index}
-            className="text-light bg-warning ms-2 ps-1 d-flex rounded-pill lead"
-          >
+          <div key={index} className=" ps-2 rounded-pill lead select">
             <span>{elem}</span>
             <span
               id={`${index}`}
@@ -49,10 +46,12 @@ const FormMultipleInput: FC = () => {
             </span>
           </div>
         ))}
-      <Form.Label>
-        Technology
-        <span className="text-danger">*</span>
-      </Form.Label>
+      <div>
+        <Form.Label>
+          Technology
+          <span className="text-danger">*</span>
+        </Form.Label>
+      </div>
       <Form.Control
         id="techno"
         type="text"
