@@ -12,10 +12,20 @@ import {
   CandidatePersonalInfo,
   userProfileInitialFields,
   userProfileListUrl,
+  userProfileUpdatedProfileListUrl,
+  userCreateProfileListUrl,
 } from "src/constants";
-import { getCandidateProfile } from "src/service";
-import { nameValidation, emailValidation } from "src/validation";
+import { getCandidateProfile, postCandidateProfile } from "src/service";
+import {
+  nameValidation,
+  emailValidation,
+  phoneNumberValidation,
+  fieldValidation,
+} from "src/validation";
 import { formatProfileData, userID } from "src/utils";
+import swal from "sweetalert";
+import ResumeInput from "src/ResumeInput";
+import { UserProfileType } from "src/common.interface";
 
 const AddUserProfile: FC = () => {
   const [fields, setFields] = useState<UserProfileInterface>(
@@ -24,23 +34,62 @@ const AddUserProfile: FC = () => {
   const [errors, setErrors] = useState<UserProfileInterface>(
     userProfileInitialFields
   );
+  const [showEditing, setShowEditing] = useState<boolean>(false);
   const id = userID();
   useEffect(() => {
     const getData = async () => {
-      const data = await getCandidateProfile(userProfileListUrl, id);
-      if (data.success) {
-        const result = await formatProfileData(data.data.profiles[0]);
-        setFields(result);
+      if (!id) {
+        setFields(userProfileInitialFields);
+      } else {
+        const data = await getCandidateProfile(userProfileListUrl, id);
+        if (data.success) {
+          const result = await formatProfileData(data.data.profiles[0]);
+          setFields(result);
+          setShowEditing(true);
+        }
       }
     };
     getData();
-  }, []);
+  }, [id]);
   const handleValidation = () => {
     let formIsValid = true;
     const fieldObj = { ...fields };
     const errorObj = { ...errors };
     errorObj.name = nameValidation(fieldObj.name, errorObj.name);
     errorObj.email = emailValidation(fieldObj.email, errorObj.email);
+    errorObj.contact_no = phoneNumberValidation(
+      fieldObj.contact_no,
+      errorObj.contact_no
+    );
+    errorObj.current_salary = fieldValidation(
+      fieldObj.current_salary,
+      errorObj.current_salary
+    );
+    errorObj.current_status = fieldValidation(
+      fieldObj.current_status,
+      errorObj.current_status
+    );
+    errorObj.expected_ctc = fieldValidation(
+      fieldObj.expected_ctc,
+      errorObj.expected_ctc
+    );
+    errorObj.experience = fieldValidation(
+      fieldObj.experience,
+      errorObj.experience
+    );
+    errorObj.source_of_hire = fieldValidation(
+      fieldObj.source_of_hire,
+      errorObj.source_of_hire
+    );
+    errorObj.gender = fieldValidation(fieldObj.gender, errorObj.gender);
+    errorObj.head_hunted_by = fieldValidation(
+      fieldObj.head_hunted_by,
+      errorObj.head_hunted_by
+    );
+    errorObj.notice_period = fieldValidation(
+      fieldObj.notice_period,
+      errorObj.notice_period
+    );
     if (errorObj.name !== "" || errorObj.email !== "") {
       formIsValid = false;
     }
@@ -50,9 +99,48 @@ const AddUserProfile: FC = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (handleValidation()) {
-      console.log(fields);
+      const userModifiedData: UserProfileType = {
+        name: fields.name,
+        email: fields.email,
+        // gender: fields.gender,
+        experience: fields.experience,
+        current_salary: fields.current_salary,
+        expected_ctc: fields.expected_ctc,
+        notice_period: fields.notice_period,
+        current_status: fields.current_status,
+        technology: fields.technology,
+        contact_no: fields.contact_no,
+        head_hunted_by: fields.head_hunted_by,
+        source_of_hire: fields.source_of_hire,
+        id: 0,
+        created_at: "",
+        updated_at: "",
+      };
+      if (id) {
+        const response = await postCandidateProfile(
+          `${userProfileUpdatedProfileListUrl}${id}`,
+          userModifiedData
+        );
+        if (response.success) {
+          swal(response.message, "", "success");
+        } else {
+          swal(response.message, "", "error");
+        }
+        setErrors(userProfileInitialFields);
+      } else {
+        const response = await postCandidateProfile(
+          userCreateProfileListUrl,
+          userModifiedData
+        );
+        if (response.success) {
+          swal(response.message, "", "success");
+        } else {
+          swal(response.message, "", "error");
+        }
+        setErrors(userProfileInitialFields);
+        setFields(userProfileInitialFields);
+      }
     }
-    setFields(userProfileInitialFields);
   };
   return (
     <div className="dash-content">
@@ -92,7 +180,10 @@ const AddUserProfile: FC = () => {
           </Row>
           <Row>
             <Col xs={4}>
-              <FormMultipleInput />
+              <FormMultipleInput fields={fields} setFields={setFields} />
+            </Col>
+            <Col xs={4}>
+              <ResumeInput fields={fields} setFields={setFields} />
             </Col>
           </Row>
           <Button
@@ -100,11 +191,13 @@ const AddUserProfile: FC = () => {
             className="btn btn-primary"
             onClick={(e) => handleSubmit(e)}
           >
-            Add User
+            ADD
           </Button>
-          <Link type="submit" className="btn btn-danger " to={"/tables"}>
-            Cancle
-          </Link>
+          {showEditing ? (
+            <Link type="submit" className="btn btn-danger " to={"/tables"}>
+              Done editing
+            </Link>
+          ) : null}
         </Form>
       </div>
     </div>
