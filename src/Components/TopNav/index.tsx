@@ -122,7 +122,7 @@ const TopNav: FC = () => {
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/">
                 <i className="fas fa-sign-out-alt me-2"></i>
                 Sign out
               </a>
