@@ -9,10 +9,10 @@ import { getCandidateProfile, getCandidateUpdatedProfile } from "src/service";
 import Search from "../Search/index";
 import { CandidateProfileInterface, DropDownTypes } from "src/common.interface";
 import {
-  candidateProfileURL,
   dropDownConstants,
   tableHeadings,
   userProfileListUrl,
+  userDeleteProfileUrl,
 } from "src/constants";
 import { paginationCal } from "src/utils";
 
@@ -36,6 +36,7 @@ const TableMain: FC = () => {
         setTableData(data?.data?.profiles);
       }
     };
+    console.log("tabledatata", tableData);
     setOption(tableHeadings);
     setSelect(dropDownConstants);
     getData();
@@ -57,7 +58,7 @@ const TableMain: FC = () => {
     setCurrentPage(pageNumber);
   };
 
-  const deleteHandler = () => {
+  const deleteHandler = (id: number) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -72,7 +73,7 @@ const TableMain: FC = () => {
       }
     });
     const getDeletedData = async () => {
-      const data = await getCandidateUpdatedProfile(candidateProfileURL);
+      const data = await getCandidateUpdatedProfile(userDeleteProfileUrl, id);
       if (data.success) {
         console.log("");
       }
