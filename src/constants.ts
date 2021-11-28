@@ -47,7 +47,7 @@ export const addProfileFormSelect = [
     option: ["Male", "Female", "Other"],
   },
   {
-    label: "Joining Location",
+    label: "Location",
     name: "location",
     option: ["Indore", "Pune", "Hyderabad", "Ahemdabad"],
   },
@@ -63,6 +63,11 @@ export const addProfileFormSelect = [
       "Mohini Bansal",
       "Arpita Saxena",
     ],
+  },
+  {
+    label: "Notice Period",
+    name: "notice_period",
+    option: ["30 days", "45 days", "60 days"],
   },
 ];
 export const initialFields = {
@@ -123,6 +128,24 @@ export const CandidatePersonalInfo = [
     type: "text",
     placeHolder: "Enter Expected CTC",
     name: "expected_ctc",
+  },
+  {
+    label: "Source of hire",
+    type: "text",
+    placeHolder: "Source of hire",
+    name: "source_of_hire",
+  },
+  {
+    label: "Experience",
+    type: "text",
+    placeHolder: "experience",
+    name: "experience",
+  },
+  {
+    label: "current status",
+    type: "text",
+    placeHolder: "current_status",
+    name: "current_status",
   },
 ];
 
@@ -203,7 +226,10 @@ export const candidateProfileURL =
   "https://rms-01.herokuapp.com/api/get-profiles";
 export const userProfileListUrl =
   "https://rms-01.herokuapp.com/api/get-profiles";
-export const userProfileDeletedList = "";
-export const userProfileUpdatedList =
+export const userProfileUpdatedProfileListUrl =
+  "https://rms-01.herokuapp.com/api/update-profile/";
+export const userCreateProfileListUrl =
   "https://rms-01.herokuapp.com/api/create-profile";
+export const userDeleteProfileUrl = "";
 export const selectUserTechonolgy = "https://rms-01.herokuapp.com/api/skillset";
+export const skillSetUrl = "https://rms-01.herokuapp.com/api/skillset";
