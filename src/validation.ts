@@ -61,3 +61,24 @@ export const confirmPasswordValidation = (
   }
   return error;
 };
+export const phoneNumberValidation = (contact_no: any, error: string) => {
+  if (!contact_no) {
+    error = "phone Number is Required";
+  } else if (contact_no) {
+    const reg = /^[0-9\b]+$/;
+    if (!contact_no.match(reg)) {
+      error = "Phone number Must be a number";
+    }
+  } else if (contact_no < 10) {
+    error = "phone length is too short";
+  } else if (contact_no > 10) {
+    error = "invalid phone number";
+  }
+  return error;
+};
+export const fieldValidation = (fields: string, error: string) => {
+  if (!fields) {
+    error = "Cannot be empty";
+  }
+  return error;
+};
